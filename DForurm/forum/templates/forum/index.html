@@ -1,0 +1,20 @@
+{% extends "forum/layout.html" %}
+
+{% block content %}
+
+<h2>Forums</h2>
+<br/>
+
+
+<p>No forums available.</p>
+<br />
+<p>You can add a set of sample polls.</p>
+<form action="/seed" method="post">
+    {% csrf_token %}
+    <button class="btn btn-primary" type="submit">Create Sample Polls</button>
+</form>
+<br />
+<p>You can design new polls using the Django administration interface.</p>
+<p><a href="/admin" class="btn btn-primary btn-large">Django Administration &raquo;</a></p>
+
+{% endblock %}

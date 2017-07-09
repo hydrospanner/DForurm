@@ -9,11 +9,13 @@ import django.contrib.auth.views
 
 import app.forms
 import app.views
+import forum.views
 
 admin.autodiscover()
 
 urlpatterns = [
     url(r'^', include('app.urls', namespace="app")),
+    url(r'^forum', include('forum.urls', namespace="forum")),
     url(r'^contact$', app.views.contact, name='contact'),
     url(r'^about', app.views.about, name='about'),
     url(r'^seed', app.views.seed, name='seed'),
