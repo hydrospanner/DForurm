@@ -8,13 +8,13 @@
 
 <p>No forums available.</p>
 <br />
-<p>You can add a set of sample polls.</p>
+<p>You can add a set of sample forums.</p>
 <form action="/seed" method="post">
     {% csrf_token %}
-    <button class="btn btn-primary" type="submit">Create Sample Polls</button>
+    <button class="btn btn-primary" type="submit">Create Sample Forums</button>
 </form>
 <br />
-<p>You can design new polls using the Django administration interface.</p>
+<p>You can design new forums using the Django administration interface.</p>
 <p><a href="/admin" class="btn btn-primary btn-large">Django Administration &raquo;</a></p>
 
 {% endblock %}
