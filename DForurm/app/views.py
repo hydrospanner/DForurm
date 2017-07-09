@@ -71,6 +71,7 @@ def about(request):
         }
     )
 
+
 def vote(request, poll_id):
     """Handles voting. Validates input and updates the repository."""
     poll = get_object_or_404(Poll, pk=poll_id)

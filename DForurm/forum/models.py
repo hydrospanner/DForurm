@@ -14,7 +14,7 @@ class Forum(models.Model):
     created = models.DateTimeField(auto_now=True)
     creator = models.ForeignKey(User, blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def num_posts(self):
@@ -50,8 +50,9 @@ class Topic(models.Model):
         if self.post_set.count():
             return self.post_set.order_by("created")[0]
 
-    def __unicode__(self):
-        return unicode(self.creator) + " - " + self.title
+    def __str__(self):
+        return self.creator.get_username() + " - " + self.title
+    
 
 
 class Post(models.Model):
@@ -63,7 +64,7 @@ class Post(models.Model):
     body = models.TextField(max_length=10000)
     user_ip = models.GenericIPAddressField(blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return u"%s - %s - %s" % (self.creator, self.topic, self.title)
 
     def short(self):
