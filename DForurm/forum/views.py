@@ -3,6 +3,7 @@ Definition of views.
 """
 
 # from app.models import Choice, Poll
+from forum.models import Forum
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -27,4 +28,13 @@ def test_index(request):
         }
     )
 
+class ForumListView(ListView):
+    """Renders the home page, with a list of all polls."""
+    model = Forum
+
+    def get_context_data(self, **kwargs):
+        context = super(ForumListView, self).get_context_data(**kwargs)
+        context['title'] = 'Forums'
+        context['year'] = datetime.now().year
+        return context
 
