@@ -1,0 +1,20 @@
+{% extends "forum/layout.html" %}
+
+{% block content %}
+
+<h2>{{forum.title}}</h2>
+<br />
+
+{% if error_message %}
+<p class="text-danger">{{error_message}}</p>
+{% endif %}
+
+{% for topic in forum.topic_set.all %}
+    <h4>{{ topic.title }}</h4>
+    <small>submitted {{ topic.created }} by {{ topic.creator.get_username }}</small>
+    <p>{{ topic.description }}</p>
+    
+{% endfor %}
+<br />
+
+{% endblock %}

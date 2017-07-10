@@ -11,9 +11,10 @@
         {% for forum in latest_forum_list %}
         <tr>
             <td>
-                {{forum.title}}
+                <!--{{forum.title}}-->
+                <a href="{% url 'forum:forum-detail' forum.id %}">{{forum.title}}</a>
             </td>
-            <td>{{form.num_posts}}</td>
+            <td>{{forum.num_posts}} posts</td>
         </tr>
         {% endfor %}
     </tbody>
@@ -31,4 +32,6 @@
 <p>You can design new forums using the Django administration interface.</p>
 <p><a href="/admin" class="btn btn-primary btn-large">Django Administration &raquo;</a></p>
 {% endif %}
+
+<h2>Recent Topics</h2><h6>from all Forums</h6>
 {% endblock %}

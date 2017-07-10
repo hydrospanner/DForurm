@@ -3,7 +3,7 @@ Definition of views.
 """
 
 # from app.models import Choice, Poll
-from forum.models import Forum
+from forum.models import Forum, Topic
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -15,7 +15,6 @@ from django.views.generic import ListView, DetailView
 from os import path
 
 # import json
-# hi
 
 
 def test_index(request):
@@ -29,7 +28,7 @@ def test_index(request):
     )
 
 class ForumListView(ListView):
-    """Renders the home page, with a list of all polls."""
+    """Renders the home page, with a list of forums."""
     model = Forum
 
     def get_context_data(self, **kwargs):
@@ -38,3 +37,12 @@ class ForumListView(ListView):
         context['year'] = datetime.now().year
         return context
 
+class ForumDetailView(DetailView):
+    """Renders the Forum details (topic list) page."""
+    model = Forum
+
+    def get_context_data(self, **kwargs):
+        context = super(ForumDetailView, self).get_context_data(**kwargs)
+        context['title'] = 'forum'
+        context['year'] = datetime.now().year
+        return context
