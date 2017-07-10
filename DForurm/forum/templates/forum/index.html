@@ -12,7 +12,8 @@
         <tr>
             <td>
                 <!--{{forum.title}}-->
-                <a href="{% url 'forum:forum-detail' forum.id %}">{{forum.title}}</a>
+                <!--<a href="{% url 'forum:forum-detail' forum.id %}">{{forum.title}}</a>-->
+                <a href="{% url 'forum:forum-detail' slug=forum.slug %}">{{forum.slug}}</a>
             </td>
             <td>{{forum.num_posts}} posts</td>
         </tr>

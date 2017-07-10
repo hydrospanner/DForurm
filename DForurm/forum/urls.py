@@ -16,9 +16,16 @@ urlpatterns = [
             context_object_name='latest_forum_list',
             template_name='forum/index.html',),
         name='forum-home'),
-    url(r'^(?P<pk>\d+)/$',
+    url(r'^f/(?P<slug>[-\w]+)/$',
         forum.views.ForumDetailView.as_view(
             template_name='forum/forum-details.html'),
         name='forum-detail'),
 
 ]
+
+'''
+url(r'^(?P<pk>\d+)/$',
+    forum.views.ForumDetailView.as_view(
+        template_name='forum/forum-details.html'),
+    name='forum-detail'),
+'''

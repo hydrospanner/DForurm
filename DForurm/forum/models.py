@@ -8,14 +8,16 @@ from django.contrib.auth.models import User
 
 
 class Forum(models.Model):
-    title = models.CharField(max_length=60)
+    slug = models.SlugField(unique=True, max_length=60)
+    # title = slug
+    # slug = title
     description= models.TextField(blank=True, default='')
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now=True)
     creator = models.ForeignKey(User, blank=True, null=True)
 
     def __str__(self):
-        return self.title
+        return self.slug
 
     def num_posts(self):
         return sum([t.num_posts() for t in self.topic_set.all()])
