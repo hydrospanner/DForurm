@@ -8,13 +8,21 @@
 {% if error_message %}
 <p class="text-danger">{{error_message}}</p>
 {% endif %}
+<p>Sort options: New - Top</p>
+<table class="table table-hover">
+    <tbody>
+        {% for topic in forum.topic_set.all %}
+        <tr>
+            <td>
+                <h4>{{ topic.title }}</h4>
+                <small>submitted {{ topic.created }} by {{ topic.creator.get_username }}</small>
+                <p>{{ topic.description }}</p>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
-{% for topic in forum.topic_set.all %}
-    <h4>{{ topic.title }}</h4>
-    <small>submitted {{ topic.created }} by {{ topic.creator.get_username }}</small>
-    <p>{{ topic.description }}</p>
-    
-{% endfor %}
 <br />
 
-{% endblock %}
+        {% endblock %}
