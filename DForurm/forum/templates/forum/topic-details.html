@@ -1,0 +1,28 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+<h2>{{ topic.title }}</h2>
+<p>{{ topic.description }}</p>
+<br />
+
+{% if error_message %}
+<p class="text-danger">{{error_message}}</p>
+{% endif %}
+
+<table class="table table-hover">
+    <tbody>
+        {% for post in topic.post_set.all %}
+        <tr>
+            <td>
+                <small>submitted {{ post.created }} by {{ post.creator.get_username }}</small>
+                <p>{{ post.body }}</p>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br />
+<a class="button" href="/">Reply</a>
+{% endblock %}

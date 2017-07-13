@@ -16,7 +16,7 @@ admin.autodiscover()
 urlpatterns = [
     url(r'^', include('app.urls', namespace="app")),
     url(r'^forum/', include('forum.urls', namespace="forum")),
-    url(r'^contact$', app.views.contact, name='contact'),
+    # url(r'^contact$', app.views.contact, name='contact'),
     url(r'^about', app.views.about, name='about'),
     url(r'^seed', app.views.seed, name='seed'),
     url(r'^login/$',

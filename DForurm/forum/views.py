@@ -35,6 +35,7 @@ class ForumListView(ListView):
         context = super(ForumListView, self).get_context_data(**kwargs)
         context['title'] = 'Forums'
         context['year'] = datetime.now().year
+        context['topics'] = Topic.objects.all()
         return context
 
 class ForumDetailView(DetailView):
@@ -44,5 +45,15 @@ class ForumDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(ForumDetailView, self).get_context_data(**kwargs)
         context['title'] = 'forum'
+        context['year'] = datetime.now().year
+        return context
+
+class TopicDetailView(DetailView):
+    """Renders the Forum details (topic list) page."""
+    model = Topic
+
+    def get_context_data(self, **kwargs):
+        context = super(TopicDetailView, self).get_context_data(**kwargs)
+        context['title'] = 'Topic -- this is not being used'
         context['year'] = datetime.now().year
         return context

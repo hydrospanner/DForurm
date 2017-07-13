@@ -1,4 +1,4 @@
-{% extends "forum/layout.html" %}
+{% extends "app/layout.html" %}
 
 {% block content %}
 
@@ -11,8 +11,6 @@
         {% for forum in latest_forum_list %}
         <tr>
             <td>
-                <!--{{forum.title}}-->
-                <!--<a href="{% url 'forum:forum-detail' forum.id %}">{{forum.title}}</a>-->
                 <a href="{% url 'forum:forum-detail' slug=forum.slug %}">{{forum.slug}}</a>
             </td>
             <td>{{forum.num_posts}} posts</td>
@@ -23,16 +21,26 @@
 {% else %}
 
 <p>No forums available.</p>
-<br />
-<p>You can add a set of sample forums.</p>
-<form action="/seed" method="post">
-    {% csrf_token %}
-    <button class="btn btn-primary" type="submit">Create Sample Forums</button>
-</form>
-<br />
-<p>You can design new forums using the Django administration interface.</p>
-<p><a href="/admin" class="btn btn-primary btn-large">Django Administration &raquo;</a></p>
 {% endif %}
 
 <h2>Recent Topics</h2><h6>from all Forums</h6>
+{% if topics %}
+<table class="table table-hover">
+    <tbody>
+        {% for topic in topics %}
+        <tr>
+            <td>
+                <h4><a href="{% url 'forum:topic-detail' topic.id %}">{{topic.title}}</a></h4>
+                <small>submitted {{ topic.created }} by {{ topic.creator.get_username }} to 
+                <a href="{% url 'forum:forum-detail' slug=topic.forum.slug %}">{{topic.forum.slug}}</a></small>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+
+<p>No topics available.</p>
+{% endif %}
+
 {% endblock %}

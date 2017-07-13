@@ -23,8 +23,8 @@ class TopicAdmin(admin.ModelAdmin):
 
 
 class PostAdmin(admin.ModelAdmin):
-    search_fields = ["title", "creator"]
-    list_display = ["title", "topic", "creator", "created"]
+    search_fields = ["creator"]
+    list_display = ["topic", "creator", "created"]
 
 admin.site.register(Forum, ForumAdmin)
 admin.site.register(Topic, TopicAdmin)

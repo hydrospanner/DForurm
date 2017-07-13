@@ -3,7 +3,6 @@ Definition of urls for polls viewing and voting.
 """
 
 from django.conf.urls import url
-#from app.models import Poll
 from forum.models import Forum
 
 import forum.views
@@ -20,6 +19,10 @@ urlpatterns = [
         forum.views.ForumDetailView.as_view(
             template_name='forum/forum-details.html'),
         name='forum-detail'),
+    url(r'^(?P<pk>\d+)/$',
+        forum.views.TopicDetailView.as_view(
+            template_name='forum/topic-details.html'),
+        name='topic-detail'),
 
 ]
 

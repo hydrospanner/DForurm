@@ -58,7 +58,7 @@ class Topic(models.Model):
 
 
 class Post(models.Model):
-    title = models.CharField(max_length=60)
+    # title = models.CharField(max_length=60)
     created = models.DateTimeField(auto_now_add=True)
     creator = models.ForeignKey(User, blank=True, null=True)
     updated = models.DateTimeField(auto_now=True)
@@ -67,9 +67,9 @@ class Post(models.Model):
     user_ip = models.GenericIPAddressField(blank=True, null=True)
 
     def __str__(self):
-        return u"%s - %s - %s" % (self.creator, self.topic, self.title)
+        return u"%s - %s" % (self.creator, self.topic)
 
     def short(self):
-        return u"%s - %s\n%s" % (self.creator, self.title, self.created.strftime("%b %d, %I:%M %p"))
+        return u"%s\n%s" % (self.creator, self.created.strftime("%b %d, %I:%M %p"))
 
     short.allow_tags = True
