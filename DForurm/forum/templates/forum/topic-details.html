@@ -15,7 +15,7 @@
         {% for post in topic.post_set.all %}
         <tr>
             <td>
-                <small>submitted {{ post.created }} by {{ post.creator.get_username }}</small>
+                <small>submitted {{ post.created|timesince }} ago by {{ post.creator.get_username }}</small>
                 <p>{{ post.body }}</p>
             </td>
         </tr>

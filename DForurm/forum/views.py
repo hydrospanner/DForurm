@@ -35,7 +35,7 @@ class ForumListView(ListView):
         context = super(ForumListView, self).get_context_data(**kwargs)
         context['title'] = 'Forums'
         context['year'] = datetime.now().year
-        context['topics'] = Topic.objects.all()
+        context['topics'] = Topic.objects.all().order_by("-created")
         return context
 
 class ForumDetailView(DetailView):

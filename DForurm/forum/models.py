@@ -58,7 +58,6 @@ class Topic(models.Model):
 
 
 class Post(models.Model):
-    # title = models.CharField(max_length=60)
     created = models.DateTimeField(auto_now_add=True)
     creator = models.ForeignKey(User, blank=True, null=True)
     updated = models.DateTimeField(auto_now=True)

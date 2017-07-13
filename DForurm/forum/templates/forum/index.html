@@ -6,6 +6,7 @@
 <br/>
 
 {% if latest_forum_list %}
+<!--
 <table class="table table-hover">
     <tbody>
         {% for forum in latest_forum_list %}
@@ -13,11 +14,16 @@
             <td>
                 <a href="{% url 'forum:forum-detail' slug=forum.slug %}">{{forum.slug}}</a>
             </td>
-            <td>{{forum.num_posts}} posts</td>
         </tr>
         {% endfor %}
     </tbody>
-</table>
+</table>-->
+<p>
+    {% for forum in latest_forum_list %}
+        <a href="{% url 'forum:forum-detail' slug=forum.slug %}">{{forum.slug}}</a> * 
+    {% endfor %}
+</p>
+
 {% else %}
 
 <p>No forums available.</p>
@@ -31,7 +37,7 @@
         <tr>
             <td>
                 <h4><a href="{% url 'forum:topic-detail' topic.id %}">{{topic.title}}</a></h4>
-                <small>submitted {{ topic.created }} by {{ topic.creator.get_username }} to 
+                <small>submitted {{ topic.created|timesince }} ago by {{ topic.creator.get_username }} to 
                 <a href="{% url 'forum:forum-detail' slug=topic.forum.slug %}">{{topic.forum.slug}}</a></small>
             </td>
         </tr>

@@ -15,9 +15,14 @@
         {% for topic in forum.topic_set.all %}
         <tr>
             <td>
-                <h4><a href="{% url 'forum:topic-detail' topic.id %}">{{topic.title}}</a></h4>
-                <small>submitted {{ topic.created }} by {{ topic.creator.get_username }}</small>
-                <p>{{ topic.description }}</p>
+                <h4><a href="{% url 'forum:topic-detail' topic.id %}">{{topic.title}}</a>
+                {% if topic.closed %}
+                    <span class="label label-danger">Closed</span>
+                {% endif %}
+                </h4>
+                
+                <small>submitted {{ topic.created|timesince }} ago by {{ topic.creator.get_username }}</small>
+                <p>{{ topic.description |truncatechars:60 }}</p>
             </td>
         </tr>
         {% endfor %}
