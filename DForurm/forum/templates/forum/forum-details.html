@@ -2,32 +2,44 @@
 
 {% block content %}
 
-<h2>{{forum.slug}}</h2>
-<br />
 
-{% if error_message %}
-<p class="text-danger">{{error_message}}</p>
-{% endif %}
-<p>Sort options: New - Top</p>
-<p>Bootstrap to the right a post a topic button</p>
-<table class="table table-hover">
-    <tbody>
-        {% for topic in forum.topic_set.all %}
-        <tr>
-            <td>
-                <h4><a href="{% url 'forum:topic-detail' topic.id %}">{{topic.title}}</a>
-                {% if topic.closed %}
-                    <span class="label label-danger">Closed</span>
-                {% endif %}
-                </h4>
-                
-                <small>submitted {{ topic.created|timesince }} ago by {{ topic.creator.get_username }}</small>
-                <p>{{ topic.description |truncatechars:60 }}</p>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
 
-<br />
+<div class="container">
+    <h2>{{forum.slug}}</h2>
+    <br />
+    <p>Sort options: New - Top</p>
+    <div class="col-xs-12 col-sm-10">
+        {% if error_message %}
+        <p class="text-danger">{{error_message}}</p>
+        {% endif %}
+        
+        <table class="table table-hover">
+            <tbody>
+                {% for topic in forum.topic_set.all %}
+                <tr>
+                    <td>
+                        <h4>
+                            <a href="{% url 'forum:topic-detail' topic.id %}">{{topic.title}}</a>
+                            {% if topic.closed %}<span class="label label-danger">Closed</span>{% endif %}
+                        </h4>
+
+                        <small>submitted {{ topic.created|timesince }} ago by {{ topic.creator.get_username }}</small>
+                        <p>{{ topic.description | truncatechars:60 }}</p>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <br />
+    </div>
+    <div class="col-xs-12 col-sm-2">
+        <button type="button" class="btn btn-outline-primary btn-block">Post a new Topic</button>
+        <br />
+        <h4>{{forum.slug}}</h4>
+        <p>{{forum.description}}</p>
+    </div>
+</div>
+
+
 {% endblock %}

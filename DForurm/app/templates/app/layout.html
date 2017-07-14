@@ -24,7 +24,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="{% url 'about' %}">About</a></li>
-                    <li><a href='/forum/'>Forums</a></li>
+                    <li><a href="{% url 'forum:forum-home' %}">Forums</a></li>
                 </ul>
                 {% include 'app/loginpartial.html' %}
             </div>

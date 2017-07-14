@@ -11,7 +11,7 @@ class Forum(models.Model):
     slug = models.SlugField(unique=True, max_length=60)
     # title = slug
     # slug = title
-    description= models.TextField(blank=True, default='')
+    description = models.TextField(blank=True, default='')
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now=True)
     creator = models.ForeignKey(User, blank=True, null=True)
