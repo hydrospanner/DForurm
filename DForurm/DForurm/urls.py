@@ -14,8 +14,8 @@ import forum.views
 admin.autodiscover()
 
 urlpatterns = [
-    url(r'^', include('app.urls', namespace="app")),
-    url(r'^forum/', include('forum.urls', namespace="forum")),
+    url(r'^polls', include('app.urls', namespace="app")),
+    url(r'^', include('forum.urls', namespace="forum")),
     # url(r'^contact$', app.views.contact, name='contact'),
     url(r'^signup', app.views.signup, name='signup'),
     url(r'^about', app.views.about, name='about'),

@@ -5,8 +5,10 @@ body {
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -44,4 +46,13 @@ input[type="checkbox"].input-validation-error {
 .radio,
 .checkbox {
   margin-bottom: 20px;
+}
+
+/* styles list & detail pages */
+#sidebar-main{
+    background-color: aqua;
+}
+
+.container {
+    max-width: none;
 }
