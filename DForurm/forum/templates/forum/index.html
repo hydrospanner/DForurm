@@ -22,8 +22,6 @@
     </div>
     <div class="col-xs-12 col-sm-10" id="topic table">
         
-
-        <!--<h2>Recent Topics</h2><h6>from all Forums</h6>-->
         {% if topics %}
         <table class="table table-hover">
             <tbody>
@@ -41,7 +39,6 @@
             </tbody>
         </table>
         {% else %}
-
         <p>No topics available.</p>
         {% endif %}
     </div>
@@ -49,8 +46,7 @@
         <button type="button" class="btn btn-outline-primary btn-block">Post a new Topic</button>
         <button type="button" class="btn btn-outline-primary btn-block">Create a New Forum</button>
         <br />
-        <h4>{{forum.slug}}</h4>
-        <p>{{forum.description}}</p>
+        <p>Welcome to Chit Chat</p>
     </div>
 </div>
         {% endblock %}

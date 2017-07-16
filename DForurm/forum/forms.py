@@ -20,14 +20,7 @@ class BootstrapAuthenticationForm(AuthenticationForm):
                                    'placeholder':'Password'}))
 
 
-class PostForm(forms.ModelForm):
-    
+class PostForm(forms.ModelForm):    
     class Meta():
         model = Post
         exclude = ('creator', 'updated', 'created', 'topic', 'user_ip',)
-
-    def clean_body(self):
-        body = self.cleaned_data["body"]
-
-        
-        return body

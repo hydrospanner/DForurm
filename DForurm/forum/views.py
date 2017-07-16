@@ -47,6 +47,8 @@ class TopicDetailView(DetailView):
         context = super(TopicDetailView, self).get_context_data(**kwargs)
         context['title'] = 'Topic -- this is not being used'
         context['year'] = datetime.now().year
+        # pass in the forum too, so the topic template can borrow from the forum template
+        # context['forum'] = context['Topic'].forum # this isn't working
         return context
 
 

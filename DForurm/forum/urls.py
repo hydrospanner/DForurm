@@ -8,10 +8,9 @@ from forum.models import Forum
 import forum.views
 
 urlpatterns = [
-    # url(r'^$', forum.views.test_index, name='index'),
     url(r'^$',
         forum.views.ForumListView.as_view(
-            queryset=Forum.objects.order_by('-updated')[:5],
+            queryset=Forum.objects.order_by('-updated')[:10],
             context_object_name='latest_forum_list',
             template_name='forum/index.html',),
         name='forum-home'),
@@ -33,3 +32,4 @@ url(r'^(?P<pk>\d+)/$',
         template_name='forum/forum-details.html'),
     name='forum-detail'),
 '''
+    # url(r'^$', forum.views.test_index, name='index'),
