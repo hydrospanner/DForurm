@@ -5,7 +5,9 @@ Definition of forms.
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import ugettext_lazy as _
+from forum.models import Topic, Post, Forum
 
+# more appropriate to have this in app.forms as this relates to general functionality, not forum specific
 class BootstrapAuthenticationForm(AuthenticationForm):
     """Authentication form which uses boostrap CSS."""
     username = forms.CharField(max_length=254,
@@ -16,3 +18,16 @@ class BootstrapAuthenticationForm(AuthenticationForm):
                                widget=forms.PasswordInput({
                                    'class': 'form-control',
                                    'placeholder':'Password'}))
+
+
+class PostForm(forms.ModelForm):
+    
+    class Meta():
+        model = Post
+        exclude = ('creator', 'updated', 'created', 'topic', 'user_ip',)
+
+    def clean_body(self):
+        body = self.cleaned_data["body"]
+
+        
+        return body

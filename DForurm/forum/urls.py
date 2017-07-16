@@ -23,6 +23,7 @@ urlpatterns = [
         forum.views.TopicDetailView.as_view(
             template_name='forum/topic-details.html'),
         name='topic-detail'),
+    url(r'^reply/(\d+)/$', forum.views.post_reply, name='reply'),
 
 ]
 

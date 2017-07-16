@@ -7,6 +7,8 @@ body {
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -44,4 +46,17 @@ input[type="checkbox"].input-validation-error {
 .radio,
 .checkbox {
   margin-bottom: 20px;
+}
+
+/* styles list & detail pages */
+#sidebar-main {
+    background-color: #E0FFFF;
+}
+
+.container {
+    max-width: none;
+}
+
+#header-bottom {
+    background-color: #87CEFA;
 }
