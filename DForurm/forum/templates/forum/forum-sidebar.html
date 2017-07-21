@@ -1,6 +1,5 @@
 <div class="col-xs-12 col-sm-2" id="sidebar-main">
-    <button type="button" class="btn btn-outline-primary btn-block">Post a new Topic</button>
-    <a href="{% url 'forum:new-topic' forum.slug %}">new topic test</a>
+    <a href="{% url 'forum:new-topic' forum.slug %}" class="btn btn-primary" role="button">Post a new topic</a>
     <br />
     <h4>{{forum.slug}}</h4>
     <p>{{forum.description}}</p>

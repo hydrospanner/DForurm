@@ -27,14 +27,12 @@
         </table>
 
         <br />
-        <a href="{% url 'forum:reply' topic.id %}">test reply</a>
-        <button type="button" class="btn btn-outline-primary">Post a Reply</button>
+        <a href="{% url 'forum:reply' topic.id %}" class="btn btn-primary" role="button">Post a reply</a>
        </div>
     <!--to make the sidebar work, I'll need to pass a forum context object-->
     <!-- include "forum/forum-sidebar.html" -->
     <div class="col-xs-12 col-sm-2" id="sidebar-main">
-        <button type="button" class="btn btn-outline-primary btn-block">Post a new Topic</button>
-        <a href="{% url 'forum:new-topic' topic.forum.slug %}">new topic test</a>
+        <a href="{% url 'forum:new-topic' topic.forum.slug %}" class="btn btn-primary btn-block" role="button">Post a new topic</a>
         <br />
         <h4>{{topic.forum.slug}}</h4>
         <p>{{topic.forum.description}}</p>

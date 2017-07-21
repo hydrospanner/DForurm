@@ -43,6 +43,10 @@ class TopicDetailView(DetailView):
     """Renders the Forum details (topic list) page."""
     model = Topic
 
+    def get_queryset(self):
+        # not working...
+        return Topic.objects.order_by("-created")
+
     def get_context_data(self, **kwargs):
         context = super(TopicDetailView, self).get_context_data(**kwargs)
         context['title'] = 'Topic -- this is not being used'
