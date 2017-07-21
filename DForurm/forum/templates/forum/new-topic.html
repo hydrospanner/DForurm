@@ -1,8 +1,8 @@
 {% extends "app/layout.html" %}
 
 {% block content %}
-<h2>reply</h2>
-<form action="{% url 'forum:reply' topic.id %}" method="POST">
+<h2>new topic</h2>
+<form action="{% url 'forum:new-topic' slug=forum.slug %}" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Submit" />

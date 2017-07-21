@@ -23,6 +23,7 @@ urlpatterns = [
             template_name='forum/topic-details.html'),
         name='topic-detail'),
     url(r'^reply/(\d+)/$', forum.views.post_reply, name='reply'),
+    url(r'^newtopic/(?P<slug>[-\w]+)/$', forum.views.new_topic, name='new-topic'),
 
 ]
 
