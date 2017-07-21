@@ -14,12 +14,9 @@ import forum.views
 admin.autodiscover()
 
 urlpatterns = [
-    url(r'^polls', include('app.urls', namespace="app")),
     url(r'^', include('forum.urls', namespace="forum")),
-    # url(r'^contact$', app.views.contact, name='contact'),
     url(r'^signup', app.views.signup, name='signup'),
     url(r'^about', app.views.about, name='about'),
-    url(r'^seed', app.views.seed, name='seed'),
     url(r'^login/$',
         django.contrib.auth.views.login,
         {

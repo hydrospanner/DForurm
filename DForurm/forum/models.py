@@ -9,8 +9,6 @@ from django.contrib.auth.models import User
 
 class Forum(models.Model):
     slug = models.SlugField(unique=True, max_length=60)
-    # title = slug
-    # slug = title
     description = models.TextField(blank=True, default='')
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now=True)
@@ -35,7 +33,7 @@ class Forum(models.Model):
 
 class Topic(models.Model):
     title = models.CharField(max_length=60)
-    description = models.TextField(max_length=10000, blank=True, null=True)
+    description = models.TextField(max_length=10000, blank=True)
     forum = models.ForeignKey(Forum)
     created = models.DateTimeField(auto_now=True)
     creator = models.ForeignKey(User, blank=True, null=True)
@@ -54,7 +52,6 @@ class Topic(models.Model):
 
     def __str__(self):
         return self.creator.get_username() + " - " + self.title
-    
 
 
 class Post(models.Model):

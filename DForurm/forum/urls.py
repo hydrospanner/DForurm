@@ -27,11 +27,3 @@ urlpatterns = [
     url(r'^newforum/$', forum.views.new_forum, name='new-forum'),
 
 ]
-
-'''
-url(r'^(?P<pk>\d+)/$',
-    forum.views.ForumDetailView.as_view(
-        template_name='forum/forum-details.html'),
-    name='forum-detail'),
-'''
-    # url(r'^$', forum.views.test_index, name='index'),

@@ -1,16 +1,8 @@
 """
 Customizations for the Django administration interface.
 """
-
 from django.contrib import admin
-# from app.models import Choice, Poll
-
 from forum.models import Forum, Topic, Post
-
-#class ChoiceInline(admin.TabularInline):
-#    """Choice objects can be edited inline in the Poll editor."""
-#    model = Choice
-#    extra = 3
 
 
 class ForumAdmin(admin.ModelAdmin):

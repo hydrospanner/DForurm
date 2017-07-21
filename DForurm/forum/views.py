@@ -123,3 +123,27 @@ def new_forum(request):
 
     context = {'form': form}
     return render(request, 'forum/new-forum.html', context)
+
+'''
+@login_required
+def seed(request):
+    """Seeds the database with sample polls."""
+    samples_path = path.join(path.dirname(__file__), 'samples.json')
+    with open(samples_path, 'r') as samples_file:
+        samples_polls = json.load(samples_file)
+
+    for sample_poll in samples_polls:
+        poll = Poll()
+        poll.text = sample_poll['text']
+        poll.pub_date = timezone.now()
+        poll.save()
+
+        for sample_choice in sample_poll['choices']:
+            choice = Choice()
+            choice.poll = poll
+            choice.text = sample_choice
+            choice.votes = 0
+            choice.save()
+
+    return HttpResponseRedirect(reverse('app:home'))
+'''
