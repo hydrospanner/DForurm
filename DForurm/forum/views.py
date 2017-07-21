@@ -12,7 +12,7 @@ from django.template import RequestContext
 from django.utils import timezone
 from django.views.generic import ListView, DetailView
 from os import path
-from forum.forms import PostForm, TopicForm
+from forum.forms import PostForm, TopicForm, ForumForm
 
 # import json
 
@@ -101,3 +101,25 @@ def new_topic(request, slug):
 
     context = {'form': form, 'forum': forum}
     return render(request, 'forum/new-topic.html', context)
+
+@login_required
+def new_forum(request):
+    form = ForumForm()
+    # forum = get_object_or_404(Forum, slug=slug)
+    
+    if request.method == 'POST':
+        form = ForumForm(request.POST)
+
+        if form.is_valid():
+
+            forum = Forum()
+            forum.slug = form.cleaned_data['slug']
+            forum.description = form.cleaned_data['description']
+            forum.creator = request.user
+
+            forum.save()
+
+            return HttpResponseRedirect(reverse('forum:forum-home', ))
+
+    context = {'form': form}
+    return render(request, 'forum/new-forum.html', context)

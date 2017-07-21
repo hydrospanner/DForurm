@@ -32,3 +32,8 @@ class TopicForm(forms.ModelForm):
     class Meta():
         model = Topic
         exclude = ('creator', 'updated', 'created', 'forum', 'user_ip', 'closed', )
+
+class ForumForm(forms.ModelForm):    
+    class Meta():
+        model = Forum
+        exclude = ('creator', 'updated', 'created', )

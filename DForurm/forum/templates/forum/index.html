@@ -8,7 +8,7 @@
         {% if latest_forum_list %}
         <p>
             {% for forum in latest_forum_list %}
-            <a href="{% url 'forum:forum-detail' slug=forum.slug %}">{{forum.slug}}</a> *
+            <a href="{% url 'forum:forum-detail' slug=forum.slug %}">{{forum.slug}}</a> - 
             {% endfor %}
         </p>
 
@@ -44,7 +44,7 @@
     </div>
     <div class="col-xs-12 col-sm-2" id="sidebar-main">
         <button type="button" class="btn btn-primary btn-block">Post a new topic</button>
-        <button type="button" class="btn btn-primary btn-block">Create a new forum</button>
+        <a href="{% url 'forum:new-forum' %}" class="btn btn-primary btn-block" role="button">Create a new forum</a>
         <br />
         <p>Welcome to Chit Chat</p>
     </div>
