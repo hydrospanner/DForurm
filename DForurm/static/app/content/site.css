@@ -60,3 +60,7 @@ input[type="checkbox"].input-validation-error {
 #header-bottom {
     background-color: #87CEFA;
 }
+
+#header-forums {
+    background-color: navy;
+}

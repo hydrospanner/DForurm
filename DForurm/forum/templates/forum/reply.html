@@ -1,10 +1,12 @@
 {% extends "app/layout.html" %}
 
 {% block content %}
-<h2>reply</h2>
-<form action="{% url 'forum:reply' topic.id %}" method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" class="btn btn-primary" value="Submit" />
-</form>
-{% endblock %}
+<div class="container">
+    <h2>reply</h2>
+    <form action="{% url 'forum:reply' topic.id %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-primary" value="Submit" />
+    </form>
+</div>
+    {% endblock %}

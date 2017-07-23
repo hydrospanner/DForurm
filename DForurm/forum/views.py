@@ -53,6 +53,7 @@ class TopicDetailView(DetailView):
         context['year'] = datetime.now().year
         # pass in the forum too, so the topic template can borrow from the forum template
         # context['forum'] = context['Topic'].forum # this isn't working
+        # context['forum'] = model.forum
         return context
 
 
@@ -127,23 +128,27 @@ def new_forum(request):
 '''
 @login_required
 def seed(request):
-    """Seeds the database with sample polls."""
+    """Seeds the database with sample Forums, Topics, and Posts."""
     samples_path = path.join(path.dirname(__file__), 'samples.json')
     with open(samples_path, 'r') as samples_file:
-        samples_polls = json.load(samples_file)
+        samples_forums = json.load(samples_file)
 
-    for sample_poll in samples_polls:
-        poll = Poll()
-        poll.text = sample_poll['text']
-        poll.pub_date = timezone.now()
-        poll.save()
+    for sample_forum in samples_forums:
+        forum = Forum()
+        forum.slug= sample_forum['forum']
+        forum.created = timezone.now()
+        forum.save()
 
-        for sample_choice in sample_poll['choices']:
-            choice = Choice()
-            choice.poll = poll
-            choice.text = sample_choice
-            choice.votes = 0
-            choice.save()
+        for sample_topic in sample_forum['topics']:
+            topic = Topic()
+            topic.forum = forum
+            topic.title = sample_topic['title']
+            topic.save()
 
-    return HttpResponseRedirect(reverse('app:home'))
+            for sample_post in sample_topic['posts']:
+            post = Post()
+            post.body = sample_post
+            post.save()
+
+    return HttpResponseRedirect(reverse('forum:forum-index'))
 '''

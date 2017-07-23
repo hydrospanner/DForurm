@@ -1,9 +1,11 @@
 {% extends "app/layout.html" %}
 
 {% block content %}
-<div class="container">
+<div class="container" id="header-bottom">
     <h2><a href="{% url 'forum:forum-detail' slug=topic.forum.slug %}">{{topic.forum.slug}}</a></h2>
     <br />
+</div>
+<div class="container">
     <div class="col-xs-12 col-sm-10">
         <h2>{{ topic.title }}</h2>
         <p>{{ topic.description }}</p>
@@ -28,7 +30,7 @@
 
         <br />
         <a href="{% url 'forum:reply' topic.id %}" class="btn btn-primary" role="button">Post a reply</a>
-       </div>
+    </div>
     <!--to make the sidebar work, I'll need to pass a forum context object-->
     <!-- include "forum/forum-sidebar.html" -->
     <div class="col-xs-12 col-sm-2" id="sidebar-main">
@@ -36,6 +38,7 @@
         <br />
         <h4>{{topic.forum.slug}}</h4>
         <p>{{topic.forum.description}}</p>
+        <p>forum obj test {{forum.slug}}</p>
     </div>
-   </div>
+</div>
     {% endblock %}
