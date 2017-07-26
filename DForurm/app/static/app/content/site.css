@@ -69,3 +69,12 @@ input[type="checkbox"].input-validation-error {
     background-color: #f7f7f7;
     padding-top: 60px;
 }
+
+.table-borderless > tbody > tr > td,
+.table-borderless > tbody > tr > th,
+.table-borderless > tfoot > tr > td,
+.table-borderless > tfoot > tr > th,
+.table-borderless > thead > tr > td,
+.table-borderless > thead > tr > th {
+    border: none;
+}

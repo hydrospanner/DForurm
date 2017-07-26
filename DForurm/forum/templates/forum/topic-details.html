@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="container" id="header-bottom">
-    <h2><a href="{% url 'forum:forum-detail' slug=topic.forum.slug %}">{{topic.forum.slug}}</a></h2>
+    <h2><a href="{% url 'forum:forum-detail' slug=topic.forum.slug %}">{{ topic.forum.slug }}</a></h2>
     <br />
 </div>
 <div class="container">
@@ -30,15 +30,25 @@
 
         <br />
         <a href="{% url 'forum:reply' topic.id %}" class="btn btn-primary" role="button">Post a reply</a>
+
+        {% block pagination %}
+        {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+        {% endif %}
+        {% endblock %}
     </div>
-    <!--to make the sidebar work, I'll need to pass a forum context object-->
-    <!-- include "forum/forum-sidebar.html" -->
-    <div class="col-xs-12 col-sm-2" id="sidebar-main">
-        <a href="{% url 'forum:new-topic' topic.forum.slug %}" class="btn btn-primary btn-block" role="button">Post a new topic</a>
-        <br />
-        <h4>{{topic.forum.slug}}</h4>
-        <p>{{topic.forum.description}}</p>
-        <p>forum obj test {{forum.slug}}</p>
-    </div>
+    {% include "forum/forum-sidebar.html" %}
 </div>
     {% endblock %}

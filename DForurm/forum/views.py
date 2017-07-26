@@ -16,7 +16,23 @@ from forum.forms import PostForm, TopicForm, ForumForm
 
 # import json
 
+def IndexView(request):
+    forums = Forum.objects.all()
+    topics = Topic.objects.all().order_by('-created')
+    return render(request, 'forum/index.html', {'latest_forum_list': forums, 'topics': topics})
 
+def forum_topics(request, slug):
+    forum = Forum.objects.get(slug=slug)
+    topics = Topic.objects.filter(forum__slug=slug).order_by('-created')
+    context = {'forum': forum, 'topics':topics}
+    return render(request, 'forum/forum-details.html', context)
+
+def topic_posts(request, pk):
+    posts = Post.objects.filter(topic__pk=pk)
+    topic = Topic.objects.get(pk=pk)
+    forum = topic.forum
+    context = {'posts': posts, 'topic': topic, 'forum': forum}
+    return render(request, 'forum/topic-details.html', context)
 
 class ForumListView(ListView):
     """Renders the home page, with a list of forums."""
@@ -42,10 +58,12 @@ class ForumDetailView(DetailView):
 class TopicDetailView(DetailView):
     """Renders the Forum details (topic list) page."""
     model = Topic
+    paginate_by = 5
+    # does this only work in list view?
 
-    def get_queryset(self):
-        # not working...
-        return Topic.objects.order_by("-created")
+    #def get_queryset(self):
+    #    # not working...
+    #    return Topic.objects.all().order_by("-created")
 
     def get_context_data(self, **kwargs):
         context = super(TopicDetailView, self).get_context_data(**kwargs)
