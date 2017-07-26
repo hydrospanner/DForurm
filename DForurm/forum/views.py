@@ -13,6 +13,7 @@ from django.utils import timezone
 from django.views.generic import ListView, DetailView
 from os import path
 from forum.forms import PostForm, TopicForm, ForumForm
+from django.contrib.auth.models import User
 
 # import json
 
@@ -23,7 +24,8 @@ def IndexView(request):
 
 def forum_topics(request, slug):
     forum = Forum.objects.get(slug=slug)
-    topics = Topic.objects.filter(forum__slug=slug).order_by('-created')
+    topics = list(Topic.objects.filter(forum__slug=slug).order_by('-created'))
+    # order_by not working...
     context = {'forum': forum, 'topics':topics}
     return render(request, 'forum/forum-details.html', context)
 
@@ -34,46 +36,11 @@ def topic_posts(request, pk):
     context = {'posts': posts, 'topic': topic, 'forum': forum}
     return render(request, 'forum/topic-details.html', context)
 
-class ForumListView(ListView):
-    """Renders the home page, with a list of forums."""
-    model = Forum
-
-    def get_context_data(self, **kwargs):
-        context = super(ForumListView, self).get_context_data(**kwargs)
-        context['title'] = 'Forums'
-        context['year'] = datetime.now().year
-        context['topics'] = Topic.objects.all().order_by("-created")
-        return context
-
-class ForumDetailView(DetailView):
-    """Renders the Forum details (topic list) page."""
-    model = Forum
-
-    def get_context_data(self, **kwargs):
-        context = super(ForumDetailView, self).get_context_data(**kwargs)
-        context['title'] = 'forum'
-        context['year'] = datetime.now().year
-        return context
-
-class TopicDetailView(DetailView):
-    """Renders the Forum details (topic list) page."""
-    model = Topic
-    paginate_by = 5
-    # does this only work in list view?
-
-    #def get_queryset(self):
-    #    # not working...
-    #    return Topic.objects.all().order_by("-created")
-
-    def get_context_data(self, **kwargs):
-        context = super(TopicDetailView, self).get_context_data(**kwargs)
-        context['title'] = 'Topic -- this is not being used'
-        context['year'] = datetime.now().year
-        # pass in the forum too, so the topic template can borrow from the forum template
-        # context['forum'] = context['Topic'].forum # this isn't working
-        # context['forum'] = model.forum
-        return context
-
+def user_posts(request, username):
+    user = User.objects.get(username=username)
+    posts = Post.objects.filter(creator=user).order_by('-created')
+    context = {'posts': posts, 'user': user}
+    return render(request, 'forum/user-posts.html', context)
 
 @login_required
 def post_reply(request, topic_id):
@@ -124,7 +91,6 @@ def new_topic(request, slug):
 @login_required
 def new_forum(request):
     form = ForumForm()
-    # forum = get_object_or_404(Forum, slug=slug)
     
     if request.method == 'POST':
         form = ForumForm(request.POST)
@@ -169,4 +135,38 @@ def seed(request):
             post.save()
 
     return HttpResponseRedirect(reverse('forum:forum-index'))
+'''
+
+'''
+class ForumListView(ListView):
+    """Renders the home page, with a list of forums."""
+    model = Forum
+
+    def get_context_data(self, **kwargs):
+        context = super(ForumListView, self).get_context_data(**kwargs)
+        context['title'] = 'Forums'
+        context['year'] = datetime.now().year
+        context['topics'] = Topic.objects.all().order_by("-created")
+        return context
+
+class ForumDetailView(DetailView):
+    """Renders the Forum details (topic list) page."""
+    model = Forum
+
+    def get_context_data(self, **kwargs):
+        context = super(ForumDetailView, self).get_context_data(**kwargs)
+        context['title'] = 'forum'
+        context['year'] = datetime.now().year
+        return context
+
+class TopicDetailView(DetailView):
+    """Renders the Forum details (topic list) page."""
+    model = Topic
+
+    def get_context_data(self, **kwargs):
+        context = super(TopicDetailView, self).get_context_data(**kwargs)
+        context['title'] = 'Topic -- this is not being used'
+        context['year'] = datetime.now().year
+        return context
+
 '''

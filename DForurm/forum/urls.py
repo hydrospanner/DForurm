@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^reply/(\d+)/$', forum.views.post_reply, name='reply'),
     url(r'^newtopic/(?P<slug>[-\w]+)/$', forum.views.new_topic, name='new-topic'),
     url(r'^newforum/$', forum.views.new_forum, name='new-forum'),
+    url(r'^user/(?P<username>[\w.@+-]+)/$', forum.views.user_posts, name='user-posts'),
     #url(r'^user/(?P<username>[\w.@+-]+)/$',
     #    forum.views.UserDetailView.as_view(
     #        template_name='forum/user-details.html'),

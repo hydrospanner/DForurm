@@ -25,10 +25,11 @@
                 {% for topic in topics %}
                 <tr>
                     <td>
-                        <h4><a href="{% url 'forum:topic-detail' topic.id %}">{{topic.title}}</a></h4>
+                        <h4><a href="{% url 'forum:topic-detail' topic.id %}">{{ topic.title }}</a></h4>
                         <small>
-                            submitted {{ topic.created|timesince }} ago by {{ topic.creator.get_username }} to
-                            <a href="{% url 'forum:forum-detail' slug=topic.forum.slug %}">{{topic.forum.slug}}</a>
+                            submitted {{ topic.created|timesince }} ago by 
+                            <a href="{% url 'forum:user-posts' topic.creator.get_username %}">{{ topic.creator.get_username }}</a> to
+                            <a href="{% url 'forum:forum-detail' slug=topic.forum.slug %}">{{ topic.forum.slug }}</a>
                         </small>
                     </td>
                 </tr>
