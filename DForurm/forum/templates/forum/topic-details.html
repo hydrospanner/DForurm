@@ -17,7 +17,7 @@
 
         <table class="table table-hover">
             <tbody>
-                {% for post in topic.post_set.all %}
+                {% for post in posts %}
                 <tr>
                     <td>
                         <small>submitted {{ post.created|timesince }} ago by {{ post.creator.get_username }}</small>
@@ -31,23 +31,25 @@
         <br />
         <a href="{% url 'forum:reply' topic.id %}" class="btn btn-primary" role="button">Post a reply</a>
 
-        {% block pagination %}
-        {% if is_paginated %}
+        <br />
         <div class="pagination">
             <span class="page-links">
-                {% if page_obj.has_previous %}
-                <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                {% if posts.has_previous %}
+                <a href="{{ request.path }}?page={{ posts.previous_page_number }}">previous</a>
                 {% endif %}
                 <span class="page-current">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
                 </span>
-                {% if page_obj.has_next %}
-                <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                {% if posts.has_next %}
+                <a href="{{ request.path }}?page={{ posts.next_page_number }}">next</a>
                 {% endif %}
             </span>
         </div>
-        {% endif %}
-        {% endblock %}
+        <!--{% block pagination %}
+    {% if is_paginated %}-->
+
+        <!--{% endif %}
+        {% endblock %}-->
     </div>
     {% include "forum/forum-sidebar.html" %}
 </div>

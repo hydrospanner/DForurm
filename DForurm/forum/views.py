@@ -10,21 +10,38 @@ from django.http import HttpRequest, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.template import RequestContext
 from django.utils import timezone
-from django.views.generic import ListView, DetailView
+# from django.views.generic import ListView, DetailView
 from os import path
 from forum.forms import PostForm, TopicForm, ForumForm
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # import json
+
+def paginator_helper(request, model_list, page_items=25):
+    paginator = Paginator(model_list, page_items)
+
+    page = request.GET.get('page')
+    try:
+        model_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        model_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        model_list = paginator.page(paginator.num_pages)
+    return model_list
 
 def IndexView(request):
     forums = Forum.objects.all()
     topics = Topic.objects.all().order_by('-created')
+    topics = paginator_helper(request, topics, 25)
     return render(request, 'forum/index.html', {'latest_forum_list': forums, 'topics': topics})
 
 def forum_topics(request, slug):
     forum = Forum.objects.get(slug=slug)
-    topics = list(Topic.objects.filter(forum__slug=slug).order_by('-created'))
+    topics = Topic.objects.filter(forum__slug=slug).order_by('-created')
+    topics = paginator_helper(request, topics, 25)
     # order_by not working...
     context = {'forum': forum, 'topics':topics}
     return render(request, 'forum/forum-details.html', context)
@@ -33,12 +50,14 @@ def topic_posts(request, pk):
     posts = Post.objects.filter(topic__pk=pk)
     topic = Topic.objects.get(pk=pk)
     forum = topic.forum
+    posts = paginator_helper(request, posts, 25)
     context = {'posts': posts, 'topic': topic, 'forum': forum}
     return render(request, 'forum/topic-details.html', context)
 
 def user_posts(request, username):
     user = User.objects.get(username=username)
     posts = Post.objects.filter(creator=user).order_by('-created')
+    posts = paginator_helper(request, posts, 25)
     context = {'posts': posts, 'user': user}
     return render(request, 'forum/user-posts.html', context)
 

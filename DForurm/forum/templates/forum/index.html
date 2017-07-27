@@ -6,7 +6,7 @@
     {% if latest_forum_list %}
     <span class="align-middle">
         {% for forum in latest_forum_list %}
-        <a href="{% url 'forum:forum-detail' slug=forum.slug %}">{{forum.slug}}</a> -
+        <a href="{% url 'forum:forum-detail' slug=forum.slug %}">{{ forum.slug }}</a> -
         {% endfor %}
     </span>
     {% else %}
@@ -46,5 +46,18 @@
         <br />
         <p>Welcome to Chit Chat</p>
     </div>
+</div>
+<div class="pagination">
+    <span class="page-links">
+        {% if topics.has_previous %}
+        <a href="{{ request.path }}?page={{ topics.previous_page_number }}">previous</a>
+        {% endif %}
+        <span class="page-current">
+            Page {{ topics.number }} of {{ topics.paginator.num_pages }}.
+        </span>
+        {% if topics.has_next %}
+        <a href="{{ request.path }}?page={{ topics.next_page_number }}">next</a>
+        {% endif %}
+    </span>
 </div>
 {% endblock %}

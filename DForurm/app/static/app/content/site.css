@@ -59,6 +59,7 @@ input[type="checkbox"].input-validation-error {
 
 #header-bottom {
     background-color: #87CEFA;
+    height: 150px;
 }
 
 #header-forums {
