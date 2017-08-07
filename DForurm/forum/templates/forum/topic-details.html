@@ -5,15 +5,11 @@
     <h2><a href="{% url 'forum:forum-detail' slug=topic.forum.slug %}">{{ topic.forum.slug }}</a></h2>
     <br />
 </div>
-<div class="container">
+<div class="container" id="main-content">
     <div class="col-xs-12 col-sm-10">
         <h2>{{ topic.title }}</h2>
         <p>{{ topic.description }}</p>
         <br />
-
-        {% if error_message %}
-        <p class="text-danger">{{error_message}}</p>
-        {% endif %}
 
         <table class="table table-hover">
             <tbody>

@@ -3,9 +3,9 @@
 {% block content %}
 
 <div id="header-forums" class="container">  
-    {% if latest_forum_list %}
+    {% if forums %}
     <span class="align-middle">
-        {% for forum in latest_forum_list %}
+        {% for forum in forums %}
         <a href="{% url 'forum:forum-detail' slug=forum.slug %}">{{ forum.slug }}</a> -
         {% endfor %}
     </span>
@@ -17,7 +17,7 @@
     <h1>Chit Chat</h1><p>Sort options: New - Top</p>
 </div>
 
-<div class="container">
+<div class="container" id="main-content">
     <div class="col-xs-12 col-sm-10" id="topic-table">
         {% if topics %}
         <table class="table table-hover table-borderless">

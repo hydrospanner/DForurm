@@ -29,7 +29,9 @@
             </div>
         </div>
     </div>
-    
+    {% if error_message %}
+        <p class="text-danger">{{ error_message }}</p>
+    {% endif %}
 {% block content %}{% endblock %}
 <footer class="footer">
     <div class="container" id="footer">

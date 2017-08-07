@@ -1,31 +1,32 @@
 {% extends "app/layout.html" %}
 
 {% block content %}
-
-
-
 <div class="container" id="header-bottom">
-    <h2>{{forum.slug}}</h2>
-    <br />
-    <p>Sort options: New - Top</p>
+    <div class="row">
+        <h2>{{ forum.slug }}</h2>
+    </div>
+    <!--<br />
+            <span class="align-text-bottom">Sort options: New - Top</span>
+
+    <p>Sort options: New - Top</p>-->
+    <div class="row align-items-end">
+        <div class="col"><p>Sort options: New - Top</p></div>
+    </div>
 </div>
-<div class="container">
+<div class="container" id="main-content">
     <div class="col-xs-12 col-sm-10">
-        {% if error_message %}
-        <p class="text-danger">{{error_message}}</p>
-        {% endif %}
-        
         <table class="table table-hover table-borderless">
             <tbody>
-                {% for topic in forum.topic_set.all %}
+                {% for topic in topics %}
                 <tr>
                     <td>
                         <h4>
-                            <a href="{% url 'forum:topic-detail' topic.id %}">{{topic.title}}</a>
+                            <a href="{% url 'forum:topic-detail' topic.id %}">{{ topic.title }}</a>
                             {% if topic.closed %}<span class="label label-danger">Closed</span>{% endif %}
                         </h4>
 
-                        <small>submitted {{ topic.created|timesince }} ago by {{ topic.creator.get_username }}</small>
+                        <small>submitted {{ topic.created|timesince }} ago by 
+                        <a href="{% url 'forum:user-posts' topic.creator.get_username %}">{{ topic.creator.get_username }}</a></small>
                         <p>{{ topic.description | truncatechars:60 }}</p>
                     </td>
                 </tr>

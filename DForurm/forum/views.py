@@ -18,9 +18,11 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # import json
 
+def get_base_context():
+    return {'year': datetime.now().year}
+
 def paginator_helper(request, model_list, page_items=25):
     paginator = Paginator(model_list, page_items)
-
     page = request.GET.get('page')
     try:
         model_list = paginator.page(page)
@@ -33,32 +35,37 @@ def paginator_helper(request, model_list, page_items=25):
     return model_list
 
 def IndexView(request):
-    forums = Forum.objects.all()
+    context = get_base_context()
+    context['forums'] = Forum.objects.all()[:20]
     topics = Topic.objects.all().order_by('-created')
-    topics = paginator_helper(request, topics, 25)
-    return render(request, 'forum/index.html', {'latest_forum_list': forums, 'topics': topics})
+    context['topics'] = paginator_helper(request, topics)
+    context['title'] = 'Welcome'
+    return render(request, 'forum/index.html', context)
 
 def forum_topics(request, slug):
-    forum = Forum.objects.get(slug=slug)
+    context = get_base_context()
+    context['forum'] = Forum.objects.get(slug=slug)
     topics = Topic.objects.filter(forum__slug=slug).order_by('-created')
-    topics = paginator_helper(request, topics, 25)
-    # order_by not working...
-    context = {'forum': forum, 'topics':topics}
+    context['topics'] = paginator_helper(request, topics)
+    context['title'] = context['forum'].slug
     return render(request, 'forum/forum-details.html', context)
 
 def topic_posts(request, pk):
-    posts = Post.objects.filter(topic__pk=pk)
-    topic = Topic.objects.get(pk=pk)
-    forum = topic.forum
-    posts = paginator_helper(request, posts, 25)
-    context = {'posts': posts, 'topic': topic, 'forum': forum}
+    context = get_base_context()
+    posts = Post.objects.filter(topic__pk=pk).order_by('created')
+    context['topic'] = Topic.objects.get(pk=pk)
+    context['forum'] = context['topic'].forum
+    context['posts'] = paginator_helper(request, posts)
+    context['title'] = context['topic'].title + ' - ' + context['forum'].slug
     return render(request, 'forum/topic-details.html', context)
 
 def user_posts(request, username):
+    context = get_base_context()
     user = User.objects.get(username=username)
     posts = Post.objects.filter(creator=user).order_by('-created')
-    posts = paginator_helper(request, posts, 25)
-    context = {'posts': posts, 'user': user}
+    posts = paginator_helper(request, posts)
+    context.update({'posts': posts, 'user': user})
+    context['title'] = user.username
     return render(request, 'forum/user-posts.html', context)
 
 @login_required
@@ -93,7 +100,6 @@ def new_topic(request, slug):
         form = TopicForm(request.POST)
 
         if form.is_valid():
-
             topic = Topic()
             topic.title = form.cleaned_data['title']
             topic.description = form.cleaned_data['description']
@@ -115,7 +121,6 @@ def new_forum(request):
         form = ForumForm(request.POST)
 
         if form.is_valid():
-
             forum = Forum()
             forum.slug = form.cleaned_data['slug']
             forum.description = form.cleaned_data['description']
@@ -154,38 +159,4 @@ def seed(request):
             post.save()
 
     return HttpResponseRedirect(reverse('forum:forum-index'))
-'''
-
-'''
-class ForumListView(ListView):
-    """Renders the home page, with a list of forums."""
-    model = Forum
-
-    def get_context_data(self, **kwargs):
-        context = super(ForumListView, self).get_context_data(**kwargs)
-        context['title'] = 'Forums'
-        context['year'] = datetime.now().year
-        context['topics'] = Topic.objects.all().order_by("-created")
-        return context
-
-class ForumDetailView(DetailView):
-    """Renders the Forum details (topic list) page."""
-    model = Forum
-
-    def get_context_data(self, **kwargs):
-        context = super(ForumDetailView, self).get_context_data(**kwargs)
-        context['title'] = 'forum'
-        context['year'] = datetime.now().year
-        return context
-
-class TopicDetailView(DetailView):
-    """Renders the Forum details (topic list) page."""
-    model = Topic
-
-    def get_context_data(self, **kwargs):
-        context = super(TopicDetailView, self).get_context_data(**kwargs)
-        context['title'] = 'Topic -- this is not being used'
-        context['year'] = datetime.now().year
-        return context
-
 '''
