@@ -261,4 +261,7 @@ __pycache__/
 *.pyc
 
 # Visual Studio environment directory
-DForum/env     
+DForum/env
+
+# DB file
+*.sqllite3
