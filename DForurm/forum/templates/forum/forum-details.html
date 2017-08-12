@@ -2,16 +2,7 @@
 
 {% block content %}
 <div class="container" id="header-bottom">
-    <div class="row">
         <h2>{{ forum.slug }}</h2>
-    </div>
-    <!--<br />
-            <span class="align-text-bottom">Sort options: New - Top</span>
-
-    <p>Sort options: New - Top</p>-->
-    <div class="row align-items-end">
-        <div class="col"><p>Sort options: New - Top</p></div>
-    </div>
 </div>
 <div class="container" id="main-content">
     <div class="col-xs-12 col-sm-10">
@@ -38,18 +29,20 @@
     </div>
     {% include "forum/forum-sidebar.html" %}
 </div>
-<div class="pagination">
-    <span class="page-links">
-        {% if topics.has_previous %}
-        <a href="{{ request.path }}?page={{ topics.previous_page_number }}">previous</a>
-        {% endif %}
-        <span class="page-current">
-            Page {{ topics.number }} of {{ topics.paginator.num_pages }}.
+<div class="container">
+    <div class="pagination">
+        <span class="page-links">
+            {% if topics.has_previous %}
+            <a href="{{ request.path }}?page={{ topics.previous_page_number }}">previous</a>
+            {% endif %}
+            <span class="page-current">
+                Page {{ topics.number }} of {{ topics.paginator.num_pages }}.
+            </span>
+            {% if topics.has_next %}
+            <a href="{{ request.path }}?page={{ topics.next_page_number }}">next</a>
+            {% endif %}
         </span>
-        {% if topics.has_next %}
-        <a href="{{ request.path }}?page={{ topics.next_page_number }}">next</a>
-        {% endif %}
-    </span>
+    </div>
 </div>
 
-{% endblock %}
+    {% endblock %}

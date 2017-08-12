@@ -68,6 +68,15 @@ def user_posts(request, username):
     context['title'] = user.username
     return render(request, 'forum/user-posts.html', context)
 
+def user_topics(request, username):
+    context = get_base_context()
+    user = User.objects.get(username=username)
+    topics = Topic.objects.filter(creator=user).order_by('-created')
+    topics = paginator_helper(request, topics)
+    context.update({'topics': topics, 'user': user})
+    context['title'] = user.username
+    return render(request, 'forum/user-topics.html', context)
+
 @login_required
 def post_reply(request, topic_id):
     form = PostForm()
@@ -88,7 +97,8 @@ def post_reply(request, topic_id):
 
             return HttpResponseRedirect(reverse('forum:topic-detail', args=(topic.id, )))
 
-    context = {'form': form, 'topic': topic}
+    context = get_base_context()
+    context.update({'form': form, 'topic': topic})
     return render(request, 'forum/reply.html', context)
 
 @login_required
@@ -110,7 +120,8 @@ def new_topic(request, slug):
 
             return HttpResponseRedirect(reverse('forum:forum-detail', args=(forum.slug, )))
 
-    context = {'form': form, 'forum': forum}
+    context = get_base_context()
+    context.update({'form': form, 'forum': forum})
     return render(request, 'forum/new-topic.html', context)
 
 @login_required
@@ -130,7 +141,8 @@ def new_forum(request):
 
             return HttpResponseRedirect(reverse('forum:forum-home', ))
 
-    context = {'form': form}
+    context = get_base_context()
+    context['form'] = form
     return render(request, 'forum/new-forum.html', context)
 
 '''

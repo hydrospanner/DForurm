@@ -4,18 +4,18 @@
 <div class="container" id="header-bottom">
     <h2>User posts - {{ user.username }}</h2>
     <br />
-    <p><a href="{% url 'forum:user-topics' user.username %}">Topics</a></p>
+    <p><a href="{% url 'forum:user-posts' user.username %}">Posts</a></p>
 </div>
 <div class="container">
     <div class="col-xs-12 col-sm-10">
         <br />
         <table class="table table-hover">
             <tbody>
-                {% for post in posts %}
+                {% for topic in topics %}
                 <tr>
                     <td>
-                        <small>submitted {{ post.created|timesince }} ago by {{ post.creator.get_username }}</small>
-                        <p>{{ post.body }}</p>
+                        <small>submitted {{ topic.created|timesince }} ago by {{ topic.creator.get_username }}</small>
+                        <p>{{ topic.description }}</p>
                     </td>
                 </tr>
                 {% endfor %}
@@ -26,14 +26,14 @@
 
         <div class="pagination">
             <span class="page-links">
-                {% if posts.has_previous %}
-                <a href="{{ request.path }}?page={{ posts.previous_page_number }}">previous</a>
+                {% if topics.has_previous %}
+                <a href="{{ request.path }}?page={{ topics.previous_page_number }}">previous</a>
                 {% endif %}
                 <span class="page-current">
-                    Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+                    Page {{ topics.number }} of {{ topics.paginator.num_pages }}.
                 </span>
-                {% if posts.has_next %}
-                <a href="{{ request.path }}?page={{ posts.next_page_number }}">next</a>
+                {% if topics.has_next %}
+                <a href="{{ request.path }}?page={{ topics.next_page_number }}">next</a>
                 {% endif %}
             </span>
         </div>
