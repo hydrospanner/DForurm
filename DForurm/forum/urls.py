@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^newforum/$', forum.views.new_forum, name='new-forum'),
     url(r'^user/(?P<username>[\w.@+-]+)/$', forum.views.user_posts, name='user-posts'),
     url(r'^user/topics/(?P<username>[\w.@+-]+)/$', forum.views.user_topics, name='user-topics'),
+    url(r'^forums/$', forum.views.browse_forums, name='browse-forums'),
 ]

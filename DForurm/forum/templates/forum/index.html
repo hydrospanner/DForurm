@@ -5,6 +5,7 @@
 <div id="header-forums" class="container">  
     {% if forums %}
     <span class="align-middle">
+        <a href="{% url 'forum:browse-forums' %}">Browse All Forums :: </a>
         {% for forum in forums %}
         <a href="{% url 'forum:forum-detail' slug=forum.slug %}">{{ forum.slug }}</a> -
         {% endfor %}
@@ -41,7 +42,6 @@
         {% endif %}
     </div>
     <div class="col-xs-12 col-sm-2" id="sidebar-main">
-        <a href="" class="btn btn-primary btn-block" role="button">Post a new topic</a>
         <a href="{% url 'forum:new-forum' %}" class="btn btn-primary btn-block" role="button">Create a new forum</a>
         <br />
         <p>Welcome to Chit Chat</p>

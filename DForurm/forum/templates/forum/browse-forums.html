@@ -1,0 +1,48 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+<div class="container" id="header-bottom">
+        <h2>Browse Forums</h2>
+</div>
+<div class="container" id="main-content">
+    <div class="col-xs-12 col-sm-10">
+        <table class="table table-hover table-borderless">
+            <tbody>
+                <th>forum</th>
+                <th>post count</th>
+                {% for forum in forums %}
+                <tr>
+                    <td>
+                        <h4>
+                            <a href="{% url 'forum:forum-detail' forum.slug %}">{{ forum.slug }}</a>
+                        </h4>
+
+                    </td>
+                    <td>
+                        {{ forum.num_posts }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <br />
+    </div>
+</div>
+<div class="container">
+    <div class="pagination">
+        <span class="page-links">
+            {% if forums.has_previous %}
+            <a href="{{ request.path }}?page={{ forums.previous_page_number }}">previous</a>
+            {% endif %}
+            <span class="page-current">
+                Page {{ forums.number }} of {{ forums.paginator.num_pages }}.
+            </span>
+            {% if forums.has_next %}
+            <a href="{{ request.path }}?page={{ forums.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+
+    {% endblock %}

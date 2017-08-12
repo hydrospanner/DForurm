@@ -42,6 +42,13 @@ def IndexView(request):
     context['title'] = 'Welcome'
     return render(request, 'forum/index.html', context)
 
+def browse_forums(request):
+    context = get_base_context()
+    context['forums'] = Forum.objects.all()
+    context['forums'] = paginator_helper(request, context['forums'])
+    context['title'] = 'Browse Forums'
+    return render(request, 'forum/browse-forums.html', context)
+
 def forum_topics(request, slug):
     context = get_base_context()
     context['forum'] = Forum.objects.get(slug=slug)
