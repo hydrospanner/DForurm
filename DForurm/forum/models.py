@@ -20,16 +20,6 @@ class Forum(models.Model):
     def num_posts(self):
         return sum([t.num_posts() for t in self.topic_set.all()])
 
-    def last_post(self):
-        if self.topic_set.count():
-            last = None
-            for t in self.topic_set.all():
-                l = t.last_post()
-                if l:
-                    if not last: last = l
-                    elif l.created > last.created: last = l
-            return last
-
 
 class Topic(models.Model):
     title = models.CharField(max_length=60)
@@ -42,13 +32,6 @@ class Topic(models.Model):
 
     def num_posts(self):
         return self.post_set.count()
-
-    def num_replies(self):
-        return max(0, self.post_set.count() - 1)
-
-    def last_post(self):
-        if self.post_set.count():
-            return self.post_set.order_by("created")[0]
 
     def __str__(self):
         return self.creator.get_username() + " - " + self.title
@@ -64,8 +47,3 @@ class Post(models.Model):
 
     def __str__(self):
         return u"%s - %s" % (self.creator, self.topic)
-
-    def short(self):
-        return u"%s\n%s" % (self.creator, self.created.strftime("%b %d, %I:%M %p"))
-
-    short.allow_tags = True
