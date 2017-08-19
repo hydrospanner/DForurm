@@ -5,7 +5,7 @@
 <div id="header-forums" class="container">  
     {% if forums %}
     <span class="align-middle">
-        <a href="{% url 'forum:browse-forums' %}">Browse All Forums :: </a>
+        <a href="{% url 'forum:browse-forums' %}">Browse All Forums</a> :: 
         {% for forum in forums %}
         <a href="{% url 'forum:forum-detail' slug=forum.slug %}">{{ forum.slug }}</a> -
         {% endfor %}
